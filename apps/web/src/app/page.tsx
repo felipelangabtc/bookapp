@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
 import { BookOpen, Pencil, Headphones, Users, Star, Globe } from 'lucide-react';
 
 import { Button } from '@bookapp/ui';
@@ -7,8 +6,6 @@ import { Button } from '@bookapp/ui';
 import { Header } from '@/components/layout/header';
 
 export default async function HomePage() {
-  const t = await getTranslations();
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
