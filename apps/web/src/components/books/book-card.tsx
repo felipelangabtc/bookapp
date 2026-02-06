@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { RatingStars, Badge } from '@bookapp/ui';
+import { Badge } from '@bookapp/ui';
 
 import type { Book, BookCategory, Category } from '@bookapp/db';
 
