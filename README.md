@@ -56,7 +56,7 @@ bookapp/
 
 - Node.js 18.17+
 - pnpm 8+
-- PostgreSQL 15+
+- Docker & Docker Compose (for local Postgres)
 
 ### Setup
 
@@ -76,27 +76,25 @@ bookapp/
    cp .env.example .env
    ```
 
-   Edit `.env` with your configuration. At minimum, you need:
-   - `DATABASE_URL`: PostgreSQL connection string
+   The defaults in `.env.example` point to the Docker Postgres instance.
+   At minimum, you need:
+   - `DATABASE_URL`: PostgreSQL connection string (default works with Docker)
    - `NEXTAUTH_SECRET`: A random secret (generate with `openssl rand -base64 32`)
    - `NEXTAUTH_URL`: Your app URL (http://localhost:3000 for development)
 
-4. **Set up the database**
+4. **Start Docker Postgres**
    ```bash
-   # Generate Prisma client
+   pnpm docker:up
+   ```
+
+5. **Set up the database**
+   ```bash
    pnpm db:generate
-
-   # Push schema to database (development)
-   pnpm db:push
-
-   # Or run migrations (production)
    pnpm db:migrate
-
-   # Seed with sample data
    pnpm db:seed
    ```
 
-5. **Start the development server**
+6. **Start the development server**
    ```bash
    pnpm dev
    ```
@@ -132,9 +130,16 @@ pnpm test:watch       # Run tests in watch mode
 # Database
 pnpm db:generate      # Generate Prisma client
 pnpm db:push          # Push schema to database
-pnpm db:migrate       # Run migrations
+pnpm db:migrate       # Run migrations (dev)
+pnpm db:deploy        # Apply migrations (prod/CI)
 pnpm db:seed          # Seed database
+pnpm db:reset         # Reset DB + re-run migrate + seed
 pnpm db:studio        # Open Prisma Studio
+
+# Docker
+pnpm docker:up        # Start Postgres container
+pnpm docker:down      # Stop Postgres container
+pnpm docker:reset     # Stop and remove Postgres data volume
 
 # Utilities
 pnpm clean            # Clean build artifacts
@@ -230,6 +235,130 @@ See [.env.example](.env.example) for all available environment variables.
 9. **Admin** (Admin only)
    - View moderation queue at `/admin`
    - Handle reported content
+
+---
+
+## Database & Infrastructure
+
+### Database Setup
+
+#### Docker Postgres (Local Development)
+
+The project includes a `docker-compose.yml` that runs **PostgreSQL 16** locally:
+
+```bash
+pnpm docker:up        # Start the container
+pnpm docker:down      # Stop the container
+pnpm docker:reset     # Stop and delete all data
+```
+
+Credentials: `postgres` / `postgres` — Database: `litapp` — Port: `5432`
+
+Cross-platform shell scripts are also available in [`scripts/`](scripts/):
+
+| Bash | PowerShell |
+|------|------------|
+| `scripts/docker-up.sh` | `scripts/docker-up.ps1` |
+| `scripts/docker-down.sh` | `scripts/docker-down.ps1` |
+| `scripts/docker-reset.sh` | `scripts/docker-reset.ps1` |
+
+#### Neon (Staging / Production)
+
+For staging or production, use [Neon](https://neon.tech) (or any hosted Postgres). Set `DATABASE_URL` in your environment:
+
+```
+DATABASE_URL="postgresql://user:pass@ep-cool-name-123456.us-east-2.aws.neon.tech/litapp?sslmode=require"
+```
+
+The application reads `DATABASE_URL` from the environment and does **not** hardcode `localhost` anywhere.
+
+### Resetting the Database
+
+```bash
+# Full reset: drops all tables, re-runs migrations, re-seeds
+pnpm db:reset
+
+# Or manually:
+pnpm docker:reset       # Wipe Docker volume
+pnpm docker:up          # Fresh Postgres
+pnpm db:migrate         # Apply migrations
+pnpm db:seed            # Seed sample data
+```
+
+### Migrations & Seed
+
+| Command | Description |
+|---------|-------------|
+| `pnpm db:migrate` | Create & apply migrations during **development** (interactive) |
+| `pnpm db:deploy` | Apply existing migrations in **CI / production** (non-interactive) |
+| `pnpm db:seed` | Populate the database with sample data (idempotent — safe to re-run) |
+| `pnpm db:studio` | Open Prisma Studio to browse data in the browser |
+
+The seed creates 4 users, 10 books, 2 works with chapters, reviews, shelf entries, follows, and a queued audio job.
+
+### CI Database Strategy
+
+GitHub Actions (`.github/workflows/ci.yml`) spins up a **Postgres 16 service container** for the `test` and `prisma-migrate-check` jobs. The workflow:
+
+1. Starts Postgres with health checks
+2. Sets `DATABASE_URL` pointing to the service
+3. Runs `pnpm db:deploy` (non-interactive migrate)
+4. Executes tests / migration diff checks
+
+No external database or Docker-in-Docker is needed — GitHub Actions manages the service container lifecycle.
+
+### Common Issues
+
+#### Port 5432 conflict
+
+If another Postgres instance is already running on port 5432:
+
+```bash
+# Check what is using the port
+# Windows:
+netstat -ano | findstr :5432
+# macOS/Linux:
+lsof -i :5432
+
+# Stop the conflicting service, or change the port in docker-compose.yml
+```
+
+#### Prisma client not generated
+
+If you see `Cannot find module '@prisma/client'`:
+
+```bash
+pnpm db:generate
+```
+
+This is also run automatically by Turbo before `build`, `dev`, and `typecheck`.
+
+#### Windows PowerShell execution policy
+
+If PowerShell blocks the `.ps1` scripts with a security error:
+
+```powershell
+# Allow scripts for the current user (run once)
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+# Or bypass for a single script
+powershell -ExecutionPolicy Bypass -File scripts/docker-up.ps1
+```
+
+---
+
+### Infra Demo Checklist
+
+Quick sanity check after cloning:
+
+- [ ] `pnpm install`
+- [ ] `pnpm docker:up` — Postgres container running
+- [ ] `pnpm db:migrate` — Migrations applied
+- [ ] `pnpm db:seed` — Sample data inserted
+- [ ] `pnpm dev` — App running at http://localhost:3000
+- [ ] `pnpm db:studio` — Prisma Studio opens in browser
+
+---
 
 ## Contributing
 

@@ -1,4 +1,4 @@
-import { PrismaClient, UserRole, ShelfType, WorkType, WorkStatus, ChapterStatus, SubscriptionPlan } from '@prisma/client';
+import { PrismaClient, UserRole, ShelfType, WorkType, WorkStatus, ChapterStatus, AudioJobStatus, SubscriptionPlan } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -277,6 +277,110 @@ async function main() {
           create: [
             { category: { connect: { id: categories[0]!.id } } },
             { category: { connect: { id: categories[3]!.id } } },
+          ],
+        },
+      },
+    }),
+    prisma.book.create({
+      data: {
+        title: 'Dune',
+        description: 'Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world.',
+        authors: ['Frank Herbert'],
+        language: 'en',
+        publishedDate: new Date('1965-08-01'),
+        isbn13: '9780441013593',
+        pageCount: 688,
+        publisher: 'Ace Books',
+        averageRating: 4.4,
+        ratingsCount: 1800,
+        reviewsCount: 150,
+        categories: {
+          create: [
+            { category: { connect: { id: categories[0]!.id } } },
+            { category: { connect: { id: categories[2]!.id } } },
+          ],
+        },
+      },
+    }),
+    prisma.book.create({
+      data: {
+        title: 'To Kill a Mockingbird',
+        description: 'The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it.',
+        authors: ['Harper Lee'],
+        language: 'en',
+        publishedDate: new Date('1960-07-11'),
+        isbn13: '9780061120084',
+        pageCount: 336,
+        publisher: 'Harper Perennial',
+        averageRating: 4.3,
+        ratingsCount: 2100,
+        reviewsCount: 175,
+        categories: {
+          create: [
+            { category: { connect: { id: categories[0]!.id } } },
+          ],
+        },
+      },
+    }),
+    prisma.book.create({
+      data: {
+        title: 'The Shining',
+        description: 'Jack Torrance sees his new job as the winter caretaker of the Overlook Hotel as a way to rebuild his life. But the hotel has other plans.',
+        authors: ['Stephen King'],
+        language: 'en',
+        publishedDate: new Date('1977-01-28'),
+        isbn13: '9780307743657',
+        pageCount: 497,
+        publisher: 'Anchor',
+        averageRating: 4.2,
+        ratingsCount: 900,
+        reviewsCount: 80,
+        categories: {
+          create: [
+            { category: { connect: { id: categories[0]!.id } } },
+            { category: { connect: { id: categories[7]!.id } } },
+          ],
+        },
+      },
+    }),
+    prisma.book.create({
+      data: {
+        title: 'O Alquimista',
+        description: 'A mistica historia de Santiago, um pastor andaluz que viaja da Espanha ate o Egito em busca de um tesouro escondido nas Piramides.',
+        authors: ['Paulo Coelho'],
+        language: 'pt',
+        publishedDate: new Date('1988-01-01'),
+        isbn13: '9780062315007',
+        pageCount: 197,
+        publisher: 'Rocco',
+        averageRating: 3.9,
+        ratingsCount: 3000,
+        reviewsCount: 250,
+        categories: {
+          create: [
+            { category: { connect: { id: categories[0]!.id } } },
+          ],
+        },
+      },
+    }),
+    prisma.book.create({
+      data: {
+        title: 'The Girl with the Dragon Tattoo',
+        description: 'Mikael Blomkvist, a once-respected financial journalist, and Lisbeth Salander, a young computer hacker, find themselves drawn into a web of deceit.',
+        authors: ['Stieg Larsson'],
+        language: 'en',
+        publishedDate: new Date('2005-08-01'),
+        isbn13: '9780307454546',
+        pageCount: 672,
+        publisher: 'Vintage Crime',
+        averageRating: 4.1,
+        ratingsCount: 1400,
+        reviewsCount: 110,
+        categories: {
+          create: [
+            { category: { connect: { id: categories[0]!.id } } },
+            { category: { connect: { id: categories[5]!.id } } },
+            { category: { connect: { id: categories[6]!.id } } },
           ],
         },
       },
@@ -660,6 +764,89 @@ The journey had begun.
     ],
   });
 
+  // Create second Work (SHORT_STORY)
+  console.log('✍️ Creating second work...');
+  const work2 = await prisma.work.create({
+    data: {
+      authorId: brazilianUser.id,
+      type: WorkType.SHORT_STORY,
+      title: 'O Relogio que Parou',
+      synopsis: 'Um conto sobre um relojoeiro que descobre que seu relogio mais antigo tem o poder de pausar o tempo. Uma reflexao sobre mortalidade e o valor de cada momento.',
+      language: 'pt',
+      tags: ['conto', 'fantasia', 'brasileiro', 'filosofia'],
+      status: WorkStatus.PUBLISHED,
+      publishedAt: new Date('2024-02-14'),
+      viewsCount: 340,
+      likesCount: 27,
+      chaptersCount: 2,
+    },
+  });
+
+  const work2Chapters = await Promise.all([
+    prisma.chapter.create({
+      data: {
+        workId: work2.id,
+        title: 'O Relojoeiro',
+        content: `# O Relojoeiro
+
+Na pequena vila de Ouro Velho, existia um relojoeiro chamado Seu Augusto. Sua oficina ficava na esquina da Rua das Flores, e todos na cidade confiavam nele para consertar seus relogios.
+
+Mas havia um relogio que Seu Augusto nunca consertou — um relogio de bolso dourado que pertencera ao seu avo. Estava parado nas 3:33 desde que ele podia se lembrar.
+
+"Por que voce nao conserta esse?" perguntou sua neta, Maria, um dia.
+
+"Porque esse relogio nao esta quebrado," respondeu ele com um sorriso misterioso.
+
+Naquela noite, quando todos dormiam, Seu Augusto abriu o relogio. Os ponteiros comecaram a se mover — e o mundo inteiro parou.`,
+        order: 1,
+        status: ChapterStatus.PUBLISHED,
+        publishedAt: new Date('2024-02-14'),
+        wordCount: 150,
+        viewsCount: 290,
+        likesCount: 22,
+      },
+    }),
+    prisma.chapter.create({
+      data: {
+        workId: work2.id,
+        title: 'O Tempo Parado',
+        content: `# O Tempo Parado
+
+Seu Augusto caminhou pela vila congelada. Passaros suspensos no ar. Gotas de chuva brilhando como diamantes imóveis.
+
+Ele poderia ter feito qualquer coisa. Mas o que fez foi simplesmente caminhar. Olhar. Apreciar cada detalhe que a pressa do dia nunca permitia ver.
+
+Quando voltou a oficina e fechou o relogio, o tempo recomeçou.
+
+"Avo," disse Maria na manha seguinte, "voce parece diferente hoje."
+
+"Estou igual, minha querida. So aprendi a ver melhor."
+
+E o relogio voltou a marcar 3:33.
+
+*Fim.*`,
+        order: 2,
+        status: ChapterStatus.PUBLISHED,
+        publishedAt: new Date('2024-02-21'),
+        wordCount: 120,
+        viewsCount: 210,
+        likesCount: 19,
+      },
+    }),
+  ]);
+
+  // Create AudioJob in QUEUED state
+  console.log('🔊 Creating audio job...');
+  await prisma.audioJob.create({
+    data: {
+      chapterId: chapters[0]!.id,
+      requestedBy: authorUser.id,
+      status: AudioJobStatus.QUEUED,
+      voice: 'alloy',
+      language: 'en',
+    },
+  });
+
   // Create Follows
   console.log('👥 Creating follows...');
   await prisma.follow.createMany({
@@ -691,7 +878,8 @@ The journey had begun.
   console.log(`   - ${books.length} books`);
   console.log(`   - 6 shelf entries`);
   console.log(`   - ${reviews.length} reviews`);
-  console.log(`   - 1 work with ${chapters.length} chapters`);
+  console.log(`   - 2 works (${chapters.length} + ${work2Chapters.length} chapters)`);
+  console.log(`   - 1 audio job (QUEUED)`);
   console.log('\n🔑 Test accounts:');
   console.log('   - admin@bookapp.com / Password123!');
   console.log('   - author@bookapp.com / Password123!');

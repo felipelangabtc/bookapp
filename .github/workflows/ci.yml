@@ -7,9 +7,11 @@ on:
     branches: [main, develop]
 
 env:
-  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/bookapp_test
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/litapp_test
   NEXTAUTH_SECRET: test-secret-key
   NEXTAUTH_URL: http://localhost:3000
+  NODE_VERSION: "20"
+  PNPM_VERSION: "8"
 
 jobs:
   lint:
@@ -23,13 +25,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -48,13 +50,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -71,11 +73,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: bookapp_test
+          POSTGRES_DB: litapp_test
         ports:
           - 5432:5432
         options: >-
@@ -91,13 +93,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -106,7 +108,7 @@ jobs:
         run: pnpm db:generate
 
       - name: Run database migrations
-        run: pnpm --filter @bookapp/db db:push
+        run: pnpm db:deploy
 
       - name: Run tests
         run: pnpm test
@@ -123,13 +125,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -146,11 +148,11 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:16
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: bookapp_test
+          POSTGRES_DB: litapp_test
         ports:
           - 5432:5432
         options: >-
@@ -166,19 +168,22 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Check Prisma schema
         run: pnpm --filter @bookapp/db prisma validate
+
+      - name: Apply migrations
+        run: pnpm db:deploy
 
       - name: Check for pending migrations
         run: pnpm --filter @bookapp/db prisma migrate diff --from-schema-datamodel ./packages/db/prisma/schema.prisma --to-schema-datasource ./packages/db/prisma/schema.prisma --exit-code
