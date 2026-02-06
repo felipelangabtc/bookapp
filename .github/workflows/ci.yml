@@ -11,7 +11,7 @@ env:
   NEXTAUTH_SECRET: test-secret-key
   NEXTAUTH_URL: http://localhost:3000
   NODE_VERSION: "20"
-  PNPM_VERSION: "8"
+  PNPM_VERSION: "9"
 
 jobs:
   lint:
