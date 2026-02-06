@@ -1,5 +1,3 @@
-import { NextResponse } from 'next/server';
-
 import { apiSuccess, errors, requireAuth, withApiHandler } from '@/lib/api-utils';
 import { createCheckoutSession } from '@/lib/services/stripe';
 import { logger } from '@/lib/logger';
