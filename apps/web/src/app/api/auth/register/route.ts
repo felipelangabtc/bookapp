@@ -10,7 +10,7 @@ import {
   errors,
   withApiHandler,
 } from '@/lib/api-utils';
-import { registerSchema } from '@/lib/validations';
+import { registerFieldsSchema } from '@/lib/validations';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { sendVerificationEmail } from '@/lib/services/email';
 import { logger } from '@/lib/logger';
@@ -24,7 +24,7 @@ export const POST = withApiHandler(async (request: Request) => {
   }
 
   // Validate request body
-  const { data, error } = await validateBody(request, registerSchema.omit({ confirmPassword: true }));
+  const { data, error } = await validateBody(request, registerFieldsSchema.omit({ confirmPassword: true }));
   if (error) return error;
 
   const { email, username, password } = data;
