@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
-import { Button, cn } from '@bookapp/ui';
+import { Button } from '@bookapp/ui';
 
 interface PaginationProps {
   currentPage: number;

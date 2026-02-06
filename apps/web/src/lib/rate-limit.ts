@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-interface RateLimitConfig {
-  interval: number; // in milliseconds
-  uniqueTokenPerInterval: number;
-}
-
 interface RateLimitResult {
   success: boolean;
   limit: number;

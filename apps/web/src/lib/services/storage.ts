@@ -67,21 +67,18 @@ class S3StorageProvider implements StorageProvider {
   private bucket: string;
   private accessKey: string;
   private secretKey: string;
-  private region: string;
-
   constructor() {
     this.endpoint = process.env.S3_ENDPOINT || 'https://s3.amazonaws.com';
     this.bucket = process.env.S3_BUCKET || 'bookapp-storage';
     this.accessKey = process.env.S3_ACCESS_KEY || '';
     this.secretKey = process.env.S3_SECRET_KEY || '';
-    this.region = process.env.S3_REGION || 'us-east-1';
   }
 
   private async sign(
-    method: string,
+    _method: string,
     key: string,
     contentType?: string,
-    payload?: Buffer
+    _payload?: Buffer
   ): Promise<{ headers: Record<string, string>; url: string }> {
     // Simplified S3 signing - in production, use @aws-sdk/client-s3
     const date = new Date().toUTCString();
@@ -116,7 +113,7 @@ class S3StorageProvider implements StorageProvider {
         ...headers,
         'Content-Length': data.length.toString(),
       },
-      body: data,
+      body: new Uint8Array(data),
     });
 
     if (!response.ok) {
