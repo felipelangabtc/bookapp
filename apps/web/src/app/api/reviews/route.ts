@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-
 import { prisma } from '@bookapp/db';
+import { type NextRequest } from 'next/server';
+
 
 import {
   apiSuccess,
@@ -9,10 +9,10 @@ import {
   validateBody,
   withApiHandler,
 } from '@/lib/api-utils';
-import { createReviewSchema } from '@/lib/validations';
+import { logger } from '@/lib/logger';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { detectLanguageSimple } from '@/lib/services/translation';
-import { logger } from '@/lib/logger';
+import { createReviewSchema } from '@/lib/validations';
 
 // Get reviews (with optional filters)
 export async function GET(request: NextRequest) {

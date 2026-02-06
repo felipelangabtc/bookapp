@@ -1,6 +1,6 @@
+import { WorkType, WorkStatus, ChapterStatus } from '@bookapp/db';
 import { z } from 'zod';
 
-import { WorkType, WorkStatus, ChapterStatus } from '@bookapp/db';
 
 const workTypeValues = Object.values(WorkType) as [WorkType, ...WorkType[]];
 const workStatusValues = Object.values(WorkStatus) as [WorkStatus, ...WorkStatus[]];

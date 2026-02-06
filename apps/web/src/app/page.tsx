@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { BookOpen, Pencil, Headphones, Users, Star, Globe } from 'lucide-react';
-
 import { Button } from '@bookapp/ui';
+import { BookOpen, Pencil, Headphones, Users, Star, Globe } from 'lucide-react';
+import Link from 'next/link';
+
 
 import { Header } from '@/components/layout/header';
 

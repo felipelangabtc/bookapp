@@ -1,6 +1,6 @@
 import { apiSuccess, errors, requireAuth, withApiHandler } from '@/lib/api-utils';
-import { createBillingPortalSession } from '@/lib/services/stripe';
 import { logger } from '@/lib/logger';
+import { createBillingPortalSession } from '@/lib/services/stripe';
 
 export const POST = withApiHandler(async () => {
   const { session, error } = await requireAuth();

@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-
 import { prisma } from '@bookapp/db';
+import { type NextRequest } from 'next/server';
+
 
 import {
   apiSuccess,
@@ -9,8 +9,8 @@ import {
   validateBody,
   withApiHandler,
 } from '@/lib/api-utils';
-import { createBookSchema } from '@/lib/validations';
 import { logger } from '@/lib/logger';
+import { createBookSchema } from '@/lib/validations';
 
 // Search/list books
 export async function GET(request: NextRequest) {

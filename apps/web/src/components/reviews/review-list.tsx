@@ -1,11 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { formatDistanceToNow } from 'date-fns';
-import { ThumbsUp, MessageSquare, Flag, Languages, AlertTriangle } from 'lucide-react';
-
 import {
   Avatar,
   AvatarImage,
@@ -14,6 +8,11 @@ import {
   Button,
   RatingStars,
 } from '@bookapp/ui';
+import { formatDistanceToNow } from 'date-fns';
+import { ThumbsUp, MessageSquare, Flag, Languages, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import type { Review, User } from '@bookapp/db';
 

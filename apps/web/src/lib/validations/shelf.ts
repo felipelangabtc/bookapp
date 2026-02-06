@@ -1,6 +1,6 @@
+import { ShelfType } from '@bookapp/db';
 import { z } from 'zod';
 
-import { ShelfType } from '@bookapp/db';
 
 export const shelfTypeValues = Object.values(ShelfType) as [ShelfType, ...ShelfType[]];
 

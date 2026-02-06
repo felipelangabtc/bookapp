@@ -1,11 +1,11 @@
 'use client';
 
+import { ToastProvider, ToastViewport } from '@bookapp/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { SessionProvider } from 'next-auth/react';
 import { useState, type ReactNode } from 'react';
 
-import { ToastProvider, ToastViewport } from '@bookapp/ui';
 
 import { Toaster } from '@/components/ui/toaster';
 

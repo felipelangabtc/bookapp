@@ -1,11 +1,11 @@
+import { UserRole } from '@bookapp/db';
 import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
-import { ZodError, ZodSchema } from 'zod';
+import { ZodError, type ZodSchema } from 'zod';
 
 import { authOptions } from './auth';
 import { logger, generateRequestId } from './logger';
 
-import { UserRole } from '@bookapp/db';
 
 export interface ApiError {
   error: string;

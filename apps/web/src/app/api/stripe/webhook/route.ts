@@ -1,8 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
+import { type NextRequest, NextResponse } from 'next/server';
 
-import { stripe, handleStripeWebhook } from '@/lib/services/stripe';
+
 import { logger } from '@/lib/logger';
+import { stripe, handleStripeWebhook } from '@/lib/services/stripe';
+
+import type Stripe from 'stripe';
 
 export async function POST(request: NextRequest) {
   if (!stripe) {

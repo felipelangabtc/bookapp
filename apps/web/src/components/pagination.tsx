@@ -1,10 +1,10 @@
 'use client';
 
+import { Button } from '@bookapp/ui';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
-import { Button } from '@bookapp/ui';
 
 interface PaginationProps {
   currentPage: number;

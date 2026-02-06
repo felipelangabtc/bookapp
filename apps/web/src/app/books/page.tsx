@@ -1,11 +1,12 @@
-import { Suspense } from 'react';
-import { getTranslations } from 'next-intl/server';
-
-import { Header } from '@/components/layout/header';
-import { BookSearch } from '@/components/books/book-search';
-import { BookGrid } from '@/components/books/book-grid';
-import { BookFilters } from '@/components/books/book-filters';
 import { Skeleton } from '@bookapp/ui';
+import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
+
+import { BookFilters } from '@/components/books/book-filters';
+import { BookGrid } from '@/components/books/book-grid';
+import { BookSearch } from '@/components/books/book-search';
+import { Header } from '@/components/layout/header';
+
 
 import type { Metadata } from 'next';
 

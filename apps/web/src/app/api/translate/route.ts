@@ -7,9 +7,9 @@ import {
   validateBody,
   withApiHandler,
 } from '@/lib/api-utils';
+import { logger } from '@/lib/logger';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { translateText } from '@/lib/services/translation';
-import { logger } from '@/lib/logger';
 
 const translateSchema = z.object({
   text: z.string().min(1).max(10000),

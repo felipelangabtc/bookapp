@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-
 import { prisma, ShelfType } from '@bookapp/db';
+import { type NextRequest } from 'next/server';
+
 
 import {
   apiSuccess,
@@ -9,9 +9,9 @@ import {
   validateBody,
   withApiHandler,
 } from '@/lib/api-utils';
-import { addToShelfSchema, updateShelfEntrySchema } from '@/lib/validations';
-import { checkRateLimit } from '@/lib/rate-limit';
 import { logger } from '@/lib/logger';
+import { checkRateLimit } from '@/lib/rate-limit';
+import { addToShelfSchema, updateShelfEntrySchema } from '@/lib/validations';
 
 // Get user's shelf entries
 export async function GET(request: NextRequest) {

@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-
 import { Badge } from '@bookapp/ui';
+import Image from 'next/image';
+import Link from 'next/link';
+
 
 import type { Book, BookCategory, Category } from '@bookapp/db';
 

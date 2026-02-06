@@ -1,14 +1,14 @@
+import { prisma, ShelfType } from '@bookapp/db';
+import { Tabs, TabsContent, TabsList, TabsTrigger, Card, CardContent, Progress } from '@bookapp/ui';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { getTranslations } from 'next-intl/server';
 
-import { prisma, ShelfType } from '@bookapp/db';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger, Card, CardContent, Progress } from '@bookapp/ui';
 
-import { authOptions } from '@/lib/auth';
-import { Header } from '@/components/layout/header';
 import { BookCard } from '@/components/books/book-card';
+import { Header } from '@/components/layout/header';
+import { authOptions } from '@/lib/auth';
 
 import type { Metadata } from 'next';
 

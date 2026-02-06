@@ -1,7 +1,8 @@
 import { prisma } from '@bookapp/db';
 
-import { BookCard } from './book-card';
 import { Pagination } from '@/components/pagination';
+
+import { BookCard } from './book-card';
 
 interface BookGridProps {
   query: string;

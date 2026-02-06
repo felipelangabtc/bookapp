@@ -1,8 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
+import { ShelfType } from '@bookapp/db';
+import {
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@bookapp/ui';
 import {
   BookmarkPlus,
   BookOpen,
@@ -11,16 +16,9 @@ import {
   ChevronDown,
   Loader2,
 } from 'lucide-react';
-
-import {
-  Button,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@bookapp/ui';
-
-import { ShelfType } from '@bookapp/db';
+import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { useToast } from '@/hooks/use-toast';
 

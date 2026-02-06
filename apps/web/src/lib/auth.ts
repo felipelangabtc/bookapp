@@ -1,11 +1,11 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
+import { prisma, type UserRole } from '@bookapp/db';
 import { compare, hash } from 'bcryptjs';
 import { type NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
-import { prisma, UserRole } from '@bookapp/db';
 
 // Extend the built-in types
 declare module 'next-auth' {

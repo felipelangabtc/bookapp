@@ -1,11 +1,11 @@
 'use client';
 
+import { Button, Input } from '@bookapp/ui';
+import { Search, X } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState, useTransition } from 'react';
-import { Search, X } from 'lucide-react';
 
-import { Button, Input } from '@bookapp/ui';
 
 interface BookSearchProps {
   initialQuery: string;

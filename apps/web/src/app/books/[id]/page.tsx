@@ -1,19 +1,18 @@
-import { notFound } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
-import { BookOpen, Globe, Calendar, Building2, Hash } from 'lucide-react';
 
 import { prisma } from '@bookapp/db';
-
 import { Badge, RatingStars, Button, Separator } from '@bookapp/ui';
+import { BookOpen, Globe, Calendar, Building2, Hash } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { getTranslations } from 'next-intl/server';
 
-import { authOptions } from '@/lib/auth';
-import { Header } from '@/components/layout/header';
 import { ShelfButton } from '@/components/books/shelf-button';
+import { Header } from '@/components/layout/header';
 import { ReviewList } from '@/components/reviews/review-list';
 import { WriteReviewButton } from '@/components/reviews/write-review-button';
+import { authOptions } from '@/lib/auth';
 
 import type { Metadata } from 'next';
 

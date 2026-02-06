@@ -1,14 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { BookOpen, Mail, Lock } from 'lucide-react';
-
 import {
   Button,
   Card,
@@ -20,9 +11,17 @@ import {
   Input,
   Label,
 } from '@bookapp/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { BookOpen, Mail, Lock } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-import { loginSchema, type LoginInput } from '@/lib/validations';
 import { useToast } from '@/hooks/use-toast';
+import { loginSchema, type LoginInput } from '@/lib/validations';
 
 export default function LoginPage() {
   const t = useTranslations('auth');

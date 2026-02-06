@@ -1,22 +1,5 @@
 'use client';
 
-import Link from 'next/link';
-import { useSession, signOut } from 'next-auth/react';
-import { useTranslations } from 'next-intl';
-import {
-  BookOpen,
-  Library,
-  PenSquare,
-  LayoutDashboard,
-  Settings,
-  LogOut,
-  Menu,
-  User,
-  Shield,
-  Search,
-} from 'lucide-react';
-import { useState } from 'react';
-
 import {
   Button,
   Avatar,
@@ -29,6 +12,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@bookapp/ui';
+import {
+  BookOpen,
+  Library,
+  PenSquare,
+  LayoutDashboard,
+  Settings,
+  LogOut,
+  Menu,
+  User,
+  Shield,
+  Search,
+} from 'lucide-react';
+import Link from 'next/link';
+import { useSession, signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { LanguageSwitcher } from '@/components/language-switcher';
 

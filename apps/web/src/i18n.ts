@@ -1,5 +1,5 @@
-import { getRequestConfig } from 'next-intl/server';
 import { cookies, headers } from 'next/headers';
+import { getRequestConfig } from 'next-intl/server';
 
 export const locales = ['en', 'pt-BR'] as const;
 export type Locale = (typeof locales)[number];

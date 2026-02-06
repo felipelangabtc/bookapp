@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-
 import { prisma, WorkStatus } from '@bookapp/db';
+import { type NextRequest } from 'next/server';
+
 
 import {
   apiSuccess,
@@ -9,8 +9,8 @@ import {
   validateBody,
   withApiHandler,
 } from '@/lib/api-utils';
-import { createWorkSchema } from '@/lib/validations';
 import { logger } from '@/lib/logger';
+import { createWorkSchema } from '@/lib/validations';
 
 // Get works (public published works or user's own works)
 export async function GET(request: NextRequest) {

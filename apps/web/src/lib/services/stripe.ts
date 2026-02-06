@@ -1,6 +1,6 @@
+import { prisma, SubscriptionPlan, SubscriptionStatus } from '@bookapp/db';
 import Stripe from 'stripe';
 
-import { prisma, SubscriptionPlan, SubscriptionStatus } from '@bookapp/db';
 
 import { logger } from '../logger';
 

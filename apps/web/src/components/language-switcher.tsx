@@ -1,10 +1,5 @@
 'use client';
 
-import { useTransition } from 'react';
-import { useLocale } from 'next-intl';
-import { Globe } from 'lucide-react';
-import Cookies from 'js-cookie';
-
 import {
   Button,
   DropdownMenu,
@@ -12,6 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@bookapp/ui';
+import Cookies from 'js-cookie';
+import { Globe } from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { useTransition } from 'react';
 
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },

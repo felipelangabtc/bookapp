@@ -1,8 +1,7 @@
+import { prisma, SubscriptionPlan, SubscriptionStatus } from '@bookapp/db';
 import { v4 as uuidv4 } from 'uuid';
 
-import { prisma, SubscriptionPlan, SubscriptionStatus } from '@bookapp/db';
 
-import { hashPassword } from '@/lib/auth';
 import {
   validateBody,
   apiSuccess,
@@ -10,10 +9,11 @@ import {
   errors,
   withApiHandler,
 } from '@/lib/api-utils';
-import { registerFieldsSchema } from '@/lib/validations';
+import { hashPassword } from '@/lib/auth';
+import { logger } from '@/lib/logger';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { sendVerificationEmail } from '@/lib/services/email';
-import { logger } from '@/lib/logger';
+import { registerFieldsSchema } from '@/lib/validations';
 
 export const POST = withApiHandler(async (request: Request) => {
   // Rate limiting
