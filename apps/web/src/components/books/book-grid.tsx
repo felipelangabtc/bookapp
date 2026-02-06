@@ -1,9 +1,4 @@
-import Link from 'next/link';
-import Image from 'next/image';
-
 import { prisma } from '@bookapp/db';
-
-import { RatingStars } from '@bookapp/ui';
 
 import { BookCard } from './book-card';
 import { Pagination } from '@/components/pagination';

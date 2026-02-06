@@ -5,7 +5,6 @@ import { prisma, WorkStatus } from '@bookapp/db';
 import {
   apiSuccess,
   errors,
-  requireAuth,
   requireAuthor,
   validateBody,
   withApiHandler,
