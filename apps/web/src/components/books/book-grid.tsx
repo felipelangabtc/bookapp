@@ -25,7 +25,7 @@ export async function BookGrid({
   if (query) {
     where.OR = [
       { title: { contains: query, mode: 'insensitive' } },
-      { authors: { hasSome: [query] } },
+      { authors: { has: query } },
       { isbn10: query },
       { isbn13: query },
     ];
